@@ -43,10 +43,18 @@ p.lead {
   left: 0;
 }
 
-button {
+.badNews {
   margin-top: 15px;
-  background-color: #fec41a;
+  background-color: black;
   color: white;
+  padding: 5px;
+  border-radius: 5px;
+
+}
+.badNews {
+  margin-top: 15px;
+  background-color: white;
+  color: black;
   padding: 5px;
   border-radius: 5px;
 
