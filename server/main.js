@@ -5,7 +5,7 @@ var bodyParser  = require('body-parser');
 var watson      = require('watson-developer-cloud');
 var fs 		    = require('fs');
 var credentials = require('./watsonCredentials')
-
+var testFetch = "test"
 var app = express();
 
 app.use(express.static(path.join(__dirname, "../client/public")));
