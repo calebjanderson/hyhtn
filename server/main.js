@@ -69,11 +69,32 @@ app.post('/textToSpeech', function(req, res) {
 
   console.log(params)
 	// Pipe the synthesized text to a file.
-	var stream = text_to_speech.synthesize(params)
-	stream.pipe(fs.createWriteStream(path.join(__dirname, "../client/public/textToSpeech.wav"), {flags:'w'}));
+	var stream = text_to_speech.synthesize(params);
+  stream.pipe(fs.createWriteStream(path.join(__dirname, "../client/audio/textToSpeech.wav"), {flags:'w'}));
 	stream.on('end', function() {
-		res.status(200).send({})
+		res.status(200).send({});
 	})
+})
+
+app.get('/get/textToSpeech.wav', function(req, res) {
+  console.log("Get me some speech!");
+  let options = {
+    // lastModified: false,
+    // cacheControl: false,
+  }
+  res.set({'Cache-Control': 'no-store'}).sendFile(path.join(__dirname, "../client/textToSpeech.wav"), options, function(err){
+    if(err){
+      console.log("ERROR: ", err);
+    }
+  });
+})
+
+app.get('/get/BellRing.wav', function(req, res) {
+  res.set({'Cache-Control': 'no-store'}).sendFile(path.join(__dirname, "../client/audio/BellRing.wav"));
+})
+
+app.get('/pic.png', function(req, res) {
+  res.sendFile(path.join(__dirname, "../client/pic.png"));
 })
 
 var port = process.env.PORT || 4000;

@@ -11,7 +11,7 @@ import RC from 'rc-progress';
 
 var ProgressBar = RC.Line
 var waitingForSpeech = false;
-
+var audio = new Audio('textToSpeech.wav');
 
 export default class ArticleList extends React.Component {
   constructor(props) {
@@ -125,15 +125,18 @@ export default class ArticleList extends React.Component {
     this.setState({showComments: false})
   }
   textToSpeech(words) {
-    var audio = new Audio('textToSpeech.wav');
     if(!waitingForSpeech){
+      console.log("New speech");
       document.body.style.cursor = 'wait';
       waitingForSpeech = true;
       fetchVoice(words).then(something => {
+        console.log("getting new speech");
         audio.load();
+        console.log("New speech loaded");
         document.body.style.cursor = 'default';
         waitingForSpeech = false;
         audio.play();
+        console.log("New speech played");
       })
     }
   }
@@ -157,8 +160,8 @@ export default class ArticleList extends React.Component {
             <aside className="photo-box-caption">
             <img onClick={this.textToSpeech.bind(null, article.description)}
                    onTouchStart={this.textToSpeech.bind(null, article.description)}
-                   className="shake-slow source-image" src={Logo.findSourceLogo(article.source)} 
-                   onMouseOver={e => e.target.src="/img/sound-recording.png"} 
+                   className="shake-slow source-image" src={Logo.findSourceLogo(article.source)}
+                   onMouseOver={e => e.target.src="/img/sound-recording.png"}
                    onMouseLeave={e => e.target.src=Logo.findSourceLogo(article.source)} />
               <p>{article.title}</p>
               <button type="button" className="button-xsmall pure-button" onClick={(e) =>{
@@ -189,8 +192,8 @@ export default class ArticleList extends React.Component {
             </div>
             :
             null}
-        </div> 
-        {this.state.showComments ? 
+        </div>
+        {this.state.showComments ?
           <Comments onClose={this.closeComments.bind(this)} updateComments={this.updateComments.bind(this)} title={this.state.articleTitle} comments={this.state.comments}/>
           :
           null}
@@ -224,7 +227,7 @@ class Comments extends React.Component {
           msg: ''
         })
         this.props.updateComments()
-      })  
+      })
     }
   }
 
