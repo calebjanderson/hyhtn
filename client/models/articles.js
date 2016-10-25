@@ -9,7 +9,14 @@ export function fetchAllSources() {
 
 export function fetchAllArticles(source) {
   return fetch(`https://newsapi.org/v1/articles/?source=${source}&apiKey=7ccff954c320409ca3f73bc45049b2d1`, { method: 'GET' })
-      .then(resp => resp.json());
+      .then((resp) => {
+        if(resp.status === 500)
+          return {
+            articles: []
+          };
+        else
+          return resp.json();
+      })
 }
 
 export function fetchVoice(words) {
