@@ -25,7 +25,7 @@ The goal of this project is to create a news website that only displays positive
 
 # Demo
 
-[Have You Heard The News](https://haveyouheardthenews.herokuapp.com/)
+[Have You Heard The News](http://www.hyhtn.com)
 
 # Backlog
 - Add authentication
